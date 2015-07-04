@@ -76,7 +76,7 @@ class MenuItemsController < ApplicationController
     menu_appetizer = []
     menu_main = []
     menu_desert = []  
-
+    
     menu_items.each do |f|
       if f.category.downcase == "appetizer"
         menu_appetizer.push f
@@ -137,36 +137,100 @@ class MenuItemsController < ApplicationController
     customers.each do |customer|
       tastes = customer.loving_taste.split(",")
       tastes.each do |f|
-        f.strip!
+        f = f.strip.downcase
         if loving_taste[f] == nil
           loving_taste[f] = 1
         else 
           loving_taste[f] = loving_taste[f] + 1
         end
       end
-
       ingredient = customer.hating_ingredient.split(",")
       ingredient.each do |f|
-        f.strip!
+        f = f.strip.downcase 
         if hating_ingredient[f] == nil
           hating_ingredient[f] = 1
         else
           hating_ingredient[f] = hating_ingredient[f] + 1
         end
       end
-      puts "DEBUG customer_email: #{customer.email}, loving_taste: #{customer.loving_taste}"
+      puts "DEBUG::menu_item_contr::customer_email: #{customer.email}, loving_taste: #{customer.loving_taste}, hating_ingredient: #{customer.hating_ingredient}"
     end
 
-    puts "DEBUG #{loving_taste}"
-    puts "DEBUG #{hating_ingredient}"
     
-    #A list of loving taste
+    puts "DEBUG::menu_item_contr:: #{loving_taste}"
+    puts "DEBUG::menu_item_contr::  #{hating_ingredient}"
+
+    menu_items = MenuItem.all
+    puts "Whole menu #{@menu_items}"
+    @respond_data = menu_items.as_json
+    menu_appetizer = []
+    menu_main = []
+    menu_desert = []  
+    
+    menu_items.each do |f|
+      if f.category.downcase == "appetizer"
+        menu_appetizer.push f
+      elsif f.category.downcase == "main"
+        menu_main.push f
+      elsif f.category.downcase == "desert"
+        menu_desert.push f
+      end
+    end
+    json = JSONBuilder::Compiler.generate do
+      array ["appetizer", "main", "desert"] do |f|
+        if f == "appetizer"
+          category "appetizer"
+          items menu_appetizer do |item|
+            item_name item.name
+            item_description item.description
+            item_category item.category
+            hated "1"
+            loved "1"
+
+            hating_ingredient_number = 0
+            
+            item_ingredient_array = item.ingredient.split(",")
+            item_ingredient_array.each do  |f|
+              f = f.strip.downcase
+              if hating_ingredient[f] != nil
+                if hating_ingredient_number < hating_ingredient[f]
+                  hating_ingredient_number = hating_ingredient[f]
+                end
+              end
+            end
+            
+            puts "Item name: #{item.name}, hating_number: #{hating_ingredient_number}"
+            
+          end
+        elsif  f == "main"
+          category "main"
+          items menu_main do |item|
+            item_name item.name
+            item_description item.description
+            item_category item.category
+            hated "1"
+            loved "1"
+          end
+        elsif f == "desert"
+          category "desert"
+          items menu_desert do |item|
+            item_name item.name
+            item_description item.description
+            item_category item.category
+            hated "1"
+            loved "1"
+          end
+        end
+      end
+    end
+    
+    
     respond_to do |f|
       f.html {render json: customers.as_json}
       f.json {render json: customers.as_json}
     end
   end
-  
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_menu_item
