@@ -205,7 +205,6 @@ class MenuItemsController < ApplicationController
                 end
               end
             end
-            
             hated hating_ingredient_number
             loved loving_taste_number
             
@@ -216,8 +215,28 @@ class MenuItemsController < ApplicationController
             item_name main_item.name
             item_description main_item.description
             item_category main_item.category
-            hated "1"
-            loved "1"
+                        hating_ingredient_number = 0
+            loving_taste_number = 0
+            item_ingredient_array = main_item.ingredient.split(",")
+            item_ingredient_array.each do  |i|
+              i = i.strip.downcase
+              if hating_ingredient[i] != nil
+                if hating_ingredient_number < hating_ingredient[i]
+                  hating_ingredient_number = hating_ingredient[i]
+                end
+              end
+            end
+            item_taste_array = main_item.taste.split(",")
+            item_taste_array.each do |i|
+              i = i.strip.downcase
+              if loving_taste[i] != nil
+                if loving_taste_number < loving_taste[i]
+                  loving_taste_number = loving_taste[i]
+                end
+              end
+            end
+            hated hating_ingredient_number
+            loved loving_taste_number
           end
         elsif f == "desert"
           items menu_desert do |desert_item|
