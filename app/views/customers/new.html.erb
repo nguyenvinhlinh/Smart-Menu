@@ -1,5 +1,50 @@
-<h1>New Customer</h1>
+<h1>Welcome to Smart Menu!</h1>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">
+      Please input your information
+    </h3>
+  </div>
+  <div class="panel-body">
 
-<%= render 'form' %>
+      <%= form_for(@customer, url: {action: "create" }, :html => {class:'form-horizontal' } ) do |f|  %>
+
+          <div class="form-group">
+            <%= f.label(:name, 'Name', class: 'col-sm-2 control-label') %>
+            <div class="col-sm-10">
+              <%= f.text_field(:name, class: 'form-control') %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :email, 'Email', class: 'col-sm-2 control-label' %>
+            <div class="col-sm-10">
+              <%= f.email_field :email, class:'form-control' %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%=	 f.label :loving_taste, 'Favorite Taste', class: 'col-sm-2 control-label' %>
+            <div class="col-sm-10">
+              <%= f.select(:loving_taste, [['Sweet', 'sweet'], ['Salty','salty'], ['Sour', 'sour'], ['Spicy','spicy']],{}, class:'form-control') %>
+
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :hating_ingredient, 'Hate Ingredient', class:'col-sm-2 control-label' %>
+            <div class="col-sm-10">
+              <%= f.select(:loving_taste, [['Peanut', 'peanut'], ['Mushroom','mushroom'], ['Fish', 'fish'], ['Pepper','pepper']],{}, class:'form-control') %>
+            </div>
+
+          </div>
+          <div class="form-group">
+            <div class="col-sm-10 pull-right">
+              <%= f.submit 'Create Profile', class: 'btn btn-primary' %>
+            </div>
+
+          </div>
+      <% end %>
+
+
+  </div>
+</div>
 
 <%= link_to 'Back', customers_path %>
