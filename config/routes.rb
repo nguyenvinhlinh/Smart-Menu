@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   root 'menu_items#index'
 
   get "/api" => "menu_items#get_whole_menu"
+  post "/invite" => "customers#invite"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
