@@ -178,6 +178,7 @@ class MenuItemsController < ApplicationController
     end
 
     json = JSONBuilder::Compiler.generate do
+      
       array ["appetizer", "main", "desert"] do |f|
         if f == "appetizer"
           category "appetizer"
@@ -215,7 +216,7 @@ class MenuItemsController < ApplicationController
             item_name main_item.name
             item_description main_item.description
             item_category main_item.category
-                        hating_ingredient_number = 0
+            hating_ingredient_number = 0
             loving_taste_number = 0
             item_ingredient_array = main_item.ingredient.split(",")
             item_ingredient_array.each do  |i|
