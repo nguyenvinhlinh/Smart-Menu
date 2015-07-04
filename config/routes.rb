@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :menu_items
   root 'menu_items#index'
 
-  get "/api" => "menu_items#get_whole_menu"
+  get "/api" => "menu_items#api"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

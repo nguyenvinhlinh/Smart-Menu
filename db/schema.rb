@@ -30,6 +30,5 @@ ActiveRecord::Schema.define(version: 20150704074222) do
     t.string   "taste"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-  end
-
+  end  
 end

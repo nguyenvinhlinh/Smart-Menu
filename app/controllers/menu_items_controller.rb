@@ -62,7 +62,11 @@ class MenuItemsController < ApplicationController
   end
 
   def api
-    get_whole_menu();
+    if params[:method] == "1"
+      get_whole_menu();
+    elsif params[:method] == "2" 
+      get_menu_with_condition();
+    end
   end
 
   def get_whole_menu
@@ -122,8 +126,45 @@ class MenuItemsController < ApplicationController
   
   def get_menu_with_condition
     #input A list of email invitation
-    
+    email_list = ["a@gmail.com", "b@gmail.com", "c@gmail.com"] #INPUT
+    #find a list of customer based on the email
+    customers = Customer.where(:email => email_list)
     #output a list of available menu
+    #A list of hating ingredients
+    loving_taste = Hash.new
+    hating_ingredient = Hash.new
+    #Return an array of hash [:sweet => "1",:salt => "22"]
+    customers.each do |customer|
+      tastes = customer.loving_taste.split(",")
+      tastes.each do |f|
+        f.strip!
+        if loving_taste[f] == nil
+          loving_taste[f] = 1
+        else 
+          loving_taste[f] = loving_taste[f] + 1
+        end
+      end
+
+      ingredient = customer.hating_ingredient.split(",")
+      ingredient.each do |f|
+        f.strip!
+        if hating_ingredient[f] == nil
+          hating_ingredient[f] = 1
+        else
+          hating_ingredient[f] = hating_ingredient[f] + 1
+        end
+      end
+      puts "DEBUG customer_email: #{customer.email}, loving_taste: #{customer.loving_taste}"
+    end
+
+    puts "DEBUG #{loving_taste}"
+    puts "DEBUG #{hating_ingredient}"
+    
+    #A list of loving taste
+    respond_to do |f|
+      f.html {render json: customers.as_json}
+      f.json {render json: customers.as_json}
+    end
   end
   
   private
