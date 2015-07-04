@@ -178,8 +178,9 @@ class MenuItemsController < ApplicationController
     end
 
     json = JSONBuilder::Compiler.generate do
-      
-      array ["appetizer", "main", "desert"] do |f|
+      number_people email_list.size
+      category_type = ["appetizer", "main", "desert"]
+      meals category_type do |f|
         if f == "appetizer"
           category "appetizer"
           items menu_appetizer do |app_item|
