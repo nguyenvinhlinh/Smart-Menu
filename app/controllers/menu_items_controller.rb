@@ -182,7 +182,7 @@ class MenuItemsController < ApplicationController
       category_type = ["appetizer", "main", "desert"]
       meals category_type do |f|
         if f == "appetizer"
-          category "appetizer"
+          category "Appetizer"
           items menu_appetizer do |app_item|
             item_name app_item.name
             item_description app_item.description
@@ -212,7 +212,7 @@ class MenuItemsController < ApplicationController
             
           end
         elsif f == "main"
-          category "main"
+          category "Main"
           items menu_main do |main_item|
             item_name main_item.name
             item_description main_item.description
@@ -241,6 +241,7 @@ class MenuItemsController < ApplicationController
             loved loving_taste_number
           end
         elsif f == "desert"
+           category "Desert"
           items menu_desert do |desert_item|
             item_name desert_item.name
             item_description desert_item.description
