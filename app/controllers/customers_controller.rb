@@ -24,6 +24,7 @@ class CustomersController < ApplicationController
   # POST /customers
   # POST /customers.json
   def create
+
     @customer = Customer.new(customer_params)
 
     respond_to do |format|
@@ -69,6 +70,10 @@ class CustomersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def customer_params
+      cust = params[:customer]
+      cust[:loving_taste] = cust[:loving_taste].reject!(&:empty?).join(',')
+      cust[:hating_ingredient] = cust[:hating_ingredient].reject!(&:empty?).join(',')
       params.require(:customer).permit(:name, :email, :hating_ingredient, :loving_taste)
+
     end
 end
