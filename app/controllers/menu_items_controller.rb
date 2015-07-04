@@ -106,6 +106,7 @@ class MenuItemsController < ApplicationController
             hated "1"
             loved "1"
           end
+          
         elsif f == "desert"
           category "desert"
           items menu_desert do |item|
@@ -123,6 +124,7 @@ class MenuItemsController < ApplicationController
       format.html { render json: json}
     end
   end
+  
   
   def get_menu_with_condition
     #input A list of email invitation
@@ -159,10 +161,8 @@ class MenuItemsController < ApplicationController
     
     puts "DEBUG::menu_item_contr:: #{loving_taste}"
     puts "DEBUG::menu_item_contr::  #{hating_ingredient}"
-
+    
     menu_items = MenuItem.all
-    puts "Whole menu #{@menu_items}"
-    @respond_data = menu_items.as_json
     menu_appetizer = []
     menu_main = []
     menu_desert = []  
@@ -176,20 +176,18 @@ class MenuItemsController < ApplicationController
         menu_desert.push f
       end
     end
+
     json = JSONBuilder::Compiler.generate do
       array ["appetizer", "main", "desert"] do |f|
         if f == "appetizer"
           category "appetizer"
-          items menu_appetizer do |item|
-            item_name item.name
-            item_description item.description
-            item_category item.category
-            hated "1"
-            loved "1"
-
+          items menu_appetizer do |app_item|
+            item_name app_item.name
+            item_description app_item.description
+            item_category app_item.category
             hating_ingredient_number = 0
             loving_taste_number = 0
-            item_ingredient_array = item.ingredient.split(",")
+            item_ingredient_array = app_item.ingredient.split(",")
             item_ingredient_array.each do  |i|
               i = i.strip.downcase
               if hating_ingredient[i] != nil
@@ -198,8 +196,7 @@ class MenuItemsController < ApplicationController
                 end
               end
             end
-            
-            item_taste_array = item.taste.split(",")
+            item_taste_array = app_item.taste.split(",")
             item_taste_array.each do |i|
               i = i.strip.downcase
               if loving_taste[i] != nil
@@ -209,49 +206,24 @@ class MenuItemsController < ApplicationController
               end
             end
             
-            puts "Item name: #{item.name}, hating_number: #{hating_ingredient_number}, loving_number: #{loving_taste_number}"
+            hated hating_ingredient_number
+            loved loving_taste_number
             
           end
-        elsif  f == "main"
+        elsif f == "main"
           category "main"
-          items menu_main do |item|
-            item_name item.name
-            item_description item.description
-            item_category item.category
+          items menu_main do |main_item|
+            item_name main_item.name
+            item_description main_item.description
+            item_category main_item.category
             hated "1"
             loved "1"
-
-            hating_ingredient_number = 0
-            loving_taste_number = 0
-            item_ingredient_array = item.ingredient.split(",")
-            item_ingredient_array.each do  |i|
-              i = i.strip.downcase
-              if hating_ingredient[i] != nil
-                if hating_ingredient_number < hating_ingredient[i]
-                  hating_ingredient_number = hating_ingredient[i]
-                end
-              end
-            end
-            
-            item_taste_array = item.taste.split(",")
-            item_taste_array.each do |i|
-              i = i.strip.downcase
-              if loving_taste[i] != nil
-                if loving_taste_number < loving_taste[i]
-                  loving_taste_number = loving_taste[i]
-                end
-              end
-            end
-            
-            puts "Item name: #{item.name}, hating_number: #{hating_ingredient_number}, loving_number: #{loving_taste_number}"
-            
           end
         elsif f == "desert"
-          category "desert"
-          items menu_desert do |item|
-            item_name item.name
-            item_description item.description
-            item_category item.category
+          items menu_desert do |desert_item|
+            item_name desert_item.name
+            item_description desert_item.description
+            item_category desert_item.category
             hated "1"
             loved "1"
           end
@@ -261,8 +233,8 @@ class MenuItemsController < ApplicationController
     
     
     respond_to do |f|
-      f.html {render json: customers.as_json}
-      f.json {render json: customers.as_json}
+      f.html {render json: json}
+      f.json {render json: json}
     end
   end
 
