@@ -64,14 +64,59 @@ class MenuItemsController < ApplicationController
   def api
     get_whole_menu();
   end
-  
+
   def get_whole_menu
     menu_items = MenuItem.all
     puts "Whole menu #{@menu_items}"
     @respond_data = menu_items.as_json
+    menu_appetizer = []
+    menu_main = []
+    menu_desert = []  
+
+    menu_items.each do |f|
+      if f.category.downcase == "appetizer"
+        menu_appetizer.push f
+      elsif f.category.downcase == "main"
+        menu_main.push f
+      elsif f.category.downcase == "desert"
+        menu_desert.push f
+      end
+    end
+    json = JSONBuilder::Compiler.generate do
+      array ["appetizer", "main", "desert"] do |f|
+        if f == "appetizer"
+          category "appetizer"
+          items menu_appetizer do |item|
+            item_name item.name
+            item_description item.description
+            item_category item.category
+            hated "1"
+            loved "1"
+          end
+        elsif  f == "main"
+          category "main"
+          items menu_main do |item|
+            item_name item.name
+            item_description item.description
+            item_category item.category
+            hated "1"
+            loved "1"
+          end
+        elsif f == "desert"
+          category "desert"
+          items menu_desert do |item|
+            item_name item.name
+            item_description item.description
+            item_category item.category
+            hated "1"
+            loved "1"
+          end
+        end
+      end
+    end
     respond_to do |format|
-      format.json { render json: @respond_data.to_json}
-      format.html { render json: @respond_data.to_json}
+      format.json { render json: json}
+      format.html { render json: json}
     end
   end
   
