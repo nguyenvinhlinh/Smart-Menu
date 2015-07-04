@@ -1,6 +1,6 @@
 class MenuItemsController < ApplicationController
   before_action :set_menu_item, only: [:show, :edit, :update, :destroy]
-
+  skip_before_action :set_menu_item, only: [:get_whole_menu]
   # GET /menu_items
   # GET /menu_items.json
   def index
@@ -61,14 +61,22 @@ class MenuItemsController < ApplicationController
     end
   end
 
+  def api
+    get_whole_menu();
+  end
+  
   def get_whole_menu
-    @menu_items = MenuItem.all
+    menu_items = MenuItem.all
+    puts "Whole menu #{@menu_items}"
+    @respond_data = menu_items.as_json
     respond_to do |format|
-      format.json { render json: @menu_items}
+      format.json { render json: @respond_data.to_json}
+      format.html { render json: @respond_data.to_json}
     end
   end
   
   def get_menu_with_condition
+    
     
   end
   
