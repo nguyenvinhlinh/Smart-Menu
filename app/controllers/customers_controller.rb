@@ -16,6 +16,7 @@ class CustomersController < ApplicationController
   # GET /customers/new
   def new
     @customer = Customer.new
+    @host_id = params[:hostid]
   end
 
   # GET /customers/1/edit
@@ -27,10 +28,19 @@ class CustomersController < ApplicationController
   def create
 
     @customer = Customer.new(customer_params)
-    cust_email = @customer.email
+
+
     respond_to do |format|
       if @customer.save
+
         UserMailer.welcome_email(@customer).deliver_later
+
+        if !params[:hostid].empty?
+          @host = Customer.find(params[:hostid])
+
+          UserMailer.notify_host(@host,@customer).deliver_later
+        end
+
         format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
         format.json { render :show, status: :created, location: @customer }
       else
