@@ -1,6 +1,5 @@
 class MenuItemsController < ApplicationController
   before_action :set_menu_item, only: [:show, :edit, :update, :destroy]
-  skip_before_action :set_menu_item, only: [:get_whole_menu]
   # GET /menu_items
   # GET /menu_items.json
   def index
@@ -271,9 +270,7 @@ class MenuItemsController < ApplicationController
           end
         end
       end
-    end
-    
-    
+    end    
     respond_to do |f|
       f.html {render json: json}
       f.json {render json: json}
