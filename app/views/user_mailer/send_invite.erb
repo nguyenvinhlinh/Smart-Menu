@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+</head>
+<body>
+
+    <div class="container">
+      <nav class="nav navbar-fixed-top">
+        <div class="container">
+          <div class="navbar-header">
+            <a class="navbar-brand">Smart Menu</a>
+          </div>
+        </div>
+      </nav>
+      <div style="padding-top:50px;">
+        <h1>Hello there!</h1>
+        <p>
+          <%= @invite.hostName %> has invited you send you food preferences to join <%= @invite.eventName %>
+          <br> Date and Time: <%= @invite.eventDateTime %>
+          <br> Location: <%= @invite.restaurantName %>
+
+        </p>
+
+        <p>
+          Please <a href="<%= @url %>">click here</a> to send in your preferences.
+        </p>
+        <p>Thanks for joining and have a great day!</p>
+
+      </div>
+
+    </div>
+</body>
+</html>

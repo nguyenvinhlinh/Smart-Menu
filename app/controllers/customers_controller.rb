@@ -1,3 +1,4 @@
+require 'mail'
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
 
@@ -26,9 +27,10 @@ class CustomersController < ApplicationController
   def create
 
     @customer = Customer.new(customer_params)
-
+    cust_email = @customer.email
     respond_to do |format|
       if @customer.save
+        UserMailer.welcome_email(@customer).deliver_later
         format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
         format.json { render :show, status: :created, location: @customer }
       else
