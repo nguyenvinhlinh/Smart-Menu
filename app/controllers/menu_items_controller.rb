@@ -61,6 +61,17 @@ class MenuItemsController < ApplicationController
     end
   end
 
+  def get_whole_menu
+    @menu_items = MenuItem.all
+    respond_to do |format|
+      format.json { render json: @menu_items}
+    end
+  end
+  
+  def get_menu_with_condition
+    
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_menu_item
