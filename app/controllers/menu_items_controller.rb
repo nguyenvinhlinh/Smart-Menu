@@ -188,18 +188,28 @@ class MenuItemsController < ApplicationController
             loved "1"
 
             hating_ingredient_number = 0
-            
+            loving_taste_number = 0
             item_ingredient_array = item.ingredient.split(",")
-            item_ingredient_array.each do  |f|
-              f = f.strip.downcase
-              if hating_ingredient[f] != nil
-                if hating_ingredient_number < hating_ingredient[f]
-                  hating_ingredient_number = hating_ingredient[f]
+            item_ingredient_array.each do  |i|
+              i = i.strip.downcase
+              if hating_ingredient[i] != nil
+                if hating_ingredient_number < hating_ingredient[i]
+                  hating_ingredient_number = hating_ingredient[i]
                 end
               end
             end
             
-            puts "Item name: #{item.name}, hating_number: #{hating_ingredient_number}"
+            item_taste_array = item.taste.split(",")
+            item_taste_array.each do |i|
+              i = i.strip.downcase
+              if loving_taste[i] != nil
+                if loving_taste_number < loving_taste[i]
+                  loving_taste_number = loving_taste[i]
+                end
+              end
+            end
+            
+            puts "Item name: #{item.name}, hating_number: #{hating_ingredient_number}, loving_number: #{loving_taste_number}"
             
           end
         elsif  f == "main"
@@ -210,6 +220,31 @@ class MenuItemsController < ApplicationController
             item_category item.category
             hated "1"
             loved "1"
+
+            hating_ingredient_number = 0
+            loving_taste_number = 0
+            item_ingredient_array = item.ingredient.split(",")
+            item_ingredient_array.each do  |i|
+              i = i.strip.downcase
+              if hating_ingredient[i] != nil
+                if hating_ingredient_number < hating_ingredient[i]
+                  hating_ingredient_number = hating_ingredient[i]
+                end
+              end
+            end
+            
+            item_taste_array = item.taste.split(",")
+            item_taste_array.each do |i|
+              i = i.strip.downcase
+              if loving_taste[i] != nil
+                if loving_taste_number < loving_taste[i]
+                  loving_taste_number = loving_taste[i]
+                end
+              end
+            end
+            
+            puts "Item name: #{item.name}, hating_number: #{hating_ingredient_number}, loving_number: #{loving_taste_number}"
+            
           end
         elsif f == "desert"
           category "desert"
