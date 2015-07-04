@@ -1,6 +1,6 @@
 class MenuItemsController < ApplicationController
   before_action :set_menu_item, only: [:show, :edit, :update, :destroy]
-
+  skip_before_action :set_menu_item, only: [:get_whole_menu]
   # GET /menu_items
   # GET /menu_items.json
   def index
@@ -61,6 +61,71 @@ class MenuItemsController < ApplicationController
     end
   end
 
+  def api
+    get_whole_menu();
+  end
+
+  def get_whole_menu
+    menu_items = MenuItem.all
+    puts "Whole menu #{@menu_items}"
+    @respond_data = menu_items.as_json
+    menu_appetizer = []
+    menu_main = []
+    menu_desert = []  
+
+    menu_items.each do |f|
+      if f.category.downcase == "appetizer"
+        menu_appetizer.push f
+      elsif f.category.downcase == "main"
+        menu_main.push f
+      elsif f.category.downcase == "desert"
+        menu_desert.push f
+      end
+    end
+    json = JSONBuilder::Compiler.generate do
+      array ["appetizer", "main", "desert"] do |f|
+        if f == "appetizer"
+          category "appetizer"
+          items menu_appetizer do |item|
+            item_name item.name
+            item_description item.description
+            item_category item.category
+            hated "1"
+            loved "1"
+          end
+        elsif  f == "main"
+          category "main"
+          items menu_main do |item|
+            item_name item.name
+            item_description item.description
+            item_category item.category
+            hated "1"
+            loved "1"
+          end
+        elsif f == "desert"
+          category "desert"
+          items menu_desert do |item|
+            item_name item.name
+            item_description item.description
+            item_category item.category
+            hated "1"
+            loved "1"
+          end
+        end
+      end
+    end
+    respond_to do |format|
+      format.json { render json: json}
+      format.html { render json: json}
+    end
+  end
+  
+  def get_menu_with_condition
+    #input A list of email invitation
+    
+    #output a list of available menu
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_menu_item
