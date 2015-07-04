@@ -64,10 +64,7 @@ class CustomersController < ApplicationController
     end
   end
 
-  def invite
-    @invite = invite_params
-    UserMailer.send_invite(@invite).deliver_now
-  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -83,7 +80,5 @@ class CustomersController < ApplicationController
       params.require(:customer).permit(:name, :email, :hating_ingredient, :loving_taste)
 
     end
-    def invite_params
-      params.permit(:hostName, :eventName, :receiverEmail, :eventDateTime, :restaurantName)
-    end
+
 end
