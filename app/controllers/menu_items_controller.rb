@@ -182,6 +182,7 @@ class MenuItemsController < ApplicationController
       meals category_type do |f|
         if f == "appetizer"
           category "Appetizer"
+          image "http://www.tastesecrets.com/category/images/appetizer.jpg"
           items menu_appetizer do |app_item|
             item_name app_item.name
             item_description app_item.description
@@ -212,6 +213,7 @@ class MenuItemsController < ApplicationController
           end
         elsif f == "main"
           category "Main"
+          image "http://kristenwinston.com/wp/wp-content/uploads/2013/02/entree-104.jpg"
           items menu_main do |main_item|
             item_name main_item.name
             item_description main_item.description
@@ -240,7 +242,8 @@ class MenuItemsController < ApplicationController
             loved loving_taste_number
           end
         elsif f == "desert"
-           category "Desert"
+          category "Desert"
+          image "https://www.applebees.com/~/media/2012_menu_images/Menu%20C/579x441/Desserts/Desserts_Brownie_Bite.jpg"
           items menu_desert do |desert_item|
             item_name desert_item.name
             item_description desert_item.description
