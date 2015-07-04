@@ -76,8 +76,9 @@ class MenuItemsController < ApplicationController
   end
   
   def get_menu_with_condition
+    #input A list of email invitation
     
-    
+    #output a list of available menu
   end
   
   private
