@@ -3,7 +3,7 @@ class UserMailer < ApplicationMailer
   def welcome_email(customer)
     @customer = customer
     @url = 'example.com'
-    mail(to: @customer.email, subject: "This is a test email")
+    mail(to: @customer.email, subject: "Thank you for sending in your preferences!")
 
   end
 
