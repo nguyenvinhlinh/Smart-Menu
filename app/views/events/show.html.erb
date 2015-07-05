@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Host email:</strong>
+  <%= @event.host_email %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @event.name %>
+</p>
+
+<p>
+  <strong>Accept email:</strong>
+  <%= @event.accept_email %>
+</p>
+
+<p>
+  <strong>Decline email:</strong>
+  <%= @event.decline_email %>
+</p>
+
+<p>
+  <strong>Pending email:</strong>
+  <%= @event.pending_email %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @event.address %>
+</p>
+
+<p>
+  <strong>Occur date:</strong>
+  <%= @event.occur_date %>
+</p>
+
+<%= link_to 'Edit', edit_event_path(@event) %> |
+<%= link_to 'Back', events_path %>

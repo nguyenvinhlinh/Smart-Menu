@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  host_email: MyText
+  name: MyText
+  accept_email: MyText
+  decline_email: MyText
+  pending_email: MyText
+  address: MyText
+  occur_date: 2015-07-05 08:19:10
+
+two:
+  host_email: MyText
+  name: MyText
+  accept_email: MyText
+  decline_email: MyText
+  pending_email: MyText
+  address: MyText
+  occur_date: 2015-07-05 08:19:10
