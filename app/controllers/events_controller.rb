@@ -68,8 +68,18 @@ class EventsController < ApplicationController
     _address = params[:address]
     _occur_date = params[:date]
 
-    
-    
+
+    event = Event.create(host_email: _host_email,
+                         name: _name,
+                         pending_email: _pending_email,
+                         address: _address,
+                         occur_date: Time.at(_occur_date)
+                        )
+
+    event.save
+    ##HAVE to send email now
+    #
+    ##
     
   end
   
