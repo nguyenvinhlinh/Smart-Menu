@@ -25,7 +25,7 @@ class UserMailer < ApplicationMailer
     # }
     #
     @invite = invite
-    @url = 'http://10.0.0.74:3000/customers/new?hostid=' + @invite[:hostid]
+    @url = 'http://10.0.0.74:3000/customers/new?hostid=' + @invite[:hostid].to_s
     subject = @invite[:hostName] + " has invited you to join " + @invite[:eventName]
     mail(to:@invite[:receiverEmail], subject: subject)
   end

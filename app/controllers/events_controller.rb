@@ -62,7 +62,7 @@ class EventsController < ApplicationController
   end
   
   def api_new_event
-    puts "#################### api_new_event "
+    puts "#################### api_new_event #{params}"
     _host_email = params[:host_email]
     _name = params[:name]
     _pending_email = params[:pending_email]
