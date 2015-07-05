@@ -24,7 +24,7 @@
           <div class="form-group">
             <%=	 f.label :loving_taste, 'Favorite Taste', class: 'col-sm-2 control-label' %>
             <div class="col-sm-10">
-              <%= f.select(:loving_taste, [['Sweet', 'sweet'], ['Salty','salty'], ['Sour', 'sour'], ['Spicy','spicy']],{}, {class:'form-control', multiple: true, size: 3}) %>
+              <%= f.select(:loving_taste, [['I\'m Vegetarian', 'veggie'], ['I\'m glutten-free','gluttenfree'], ['I like sour', 'sour'], ['I\'m lactose-free','lactosefree']],{}, {class:'form-control', multiple: true, size: 3}) %>
               <p class="help-block">Hold Ctr or Command to select more tastes</p>
             </div>
 
