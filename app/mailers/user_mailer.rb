@@ -24,10 +24,17 @@ class UserMailer < ApplicationMailer
     #   restaurantName: 'Fancy Restaurant'
     # }
     #
-    @invite = invite
+
+    emailList = invite[:receiverEmail].split(',')
+    puts emailList
     @url = 'http://10.0.0.74:3000/customers/new?hostid=' + @invite[:hostid].to_s
-    subject = @invite[:hostName] + " has invited you to join " + @invite[:eventName]
-    mail(to:@invite[:receiverEmail], subject: subject)
+    subject = invite[:hostName] + " has invited you to join " + invite[:eventName]
+    emailList.each do |item|
+      @invite = invite
+      @invite[:receiverEmail] = item
+      mail(to:@invite[:receiverEmail], subject: subject)
+    end
+
   end
 
 end

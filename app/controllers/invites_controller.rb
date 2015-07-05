@@ -18,6 +18,6 @@ class InvitesController < ApplicationController
   private
   def invite_params
 
-    params.require(:invite).permit(:eventName, :hostName, :receiverEmail, :eventDateTime, :restaurantName, :hostid)
+    params.require(:invite).permit(:eventName, :hostName, :receiverEmail => [], :eventDateTime, :restaurantName, :hostid)
   end
 end
