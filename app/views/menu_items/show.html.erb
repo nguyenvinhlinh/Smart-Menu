@@ -25,5 +25,9 @@
   <%= @menu_item.taste %>
 </p>
 
+<p >
+    <img src="<%= @menu_item.image %>" style="width: 75px; height:75px;" />
+</p>
+
 <%= link_to 'Edit', edit_menu_item_path(@menu_item) %> |
 <%= link_to 'Back', menu_items_path %>
