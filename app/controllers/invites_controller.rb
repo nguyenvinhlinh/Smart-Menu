@@ -6,6 +6,7 @@ class InvitesController < ApplicationController
   end
   private
   def invite_params
+
     params.permit(:eventName, :hostName, :receiverEmail, :eventDateTime, :restaurantName, :hostid)
   end
 end
