@@ -3,8 +3,14 @@ class UserMailer < ApplicationMailer
   def welcome_email(customer)
     @customer = customer
     @url = 'example.com'
-    mail(to: @customer.email, subject: "This is a test email")
+    mail(to: @customer.email, subject: "Thank you for sending in your preferences!")
 
+  end
+
+  def notify_host(host, customer)
+    @host = host
+    @customer = customer
+    mail(to: @host[:email], subject: "Invitation Accepted")
   end
 
   def send_invite(invite)
@@ -19,9 +25,9 @@ class UserMailer < ApplicationMailer
     # }
     #
     @invite = invite
-    @url = 'http://10.0.0.74:3000/customers/new'
-    subject = invite.hostName + " has invited you to join " + invite.eventName
-    mail(to:@invite.receiverEmail, subject: subject)
+    @url = 'http://10.0.0.74:3000/customers/new?hostid=' + @invite[:hostid]
+    subject = @invite[:hostName] + " has invited you to join " + @invite[:eventName]
+    mail(to:@invite[:receiverEmail], subject: subject)
   end
 
 end

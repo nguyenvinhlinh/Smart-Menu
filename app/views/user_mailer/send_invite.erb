@@ -17,9 +17,9 @@
       <div style="padding-top:50px;">
         <h1>Hello there!</h1>
         <p>
-          <%= @invite.hostName %> has invited you send you food preferences to join <%= @invite.eventName %>
-          <br> Date and Time: <%= @invite.eventDateTime %>
-          <br> Location: <%= @invite.restaurantName %>
+          <%= @invite[:hostName] %> has invited you send you food preferences to join <%= @invite[:eventName] %>
+          <br> Date and Time: <%= @invite[:eventDateTime] %>
+          <br> Location: <%= @invite[:restaurantName] %>
 
         </p>
 

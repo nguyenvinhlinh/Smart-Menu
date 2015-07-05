@@ -4,10 +4,13 @@ Rails.application.routes.draw do
   resources :customers
 
   resources :menu_items
+  resources :invites
+
   root 'menu_items#index'
 
   get "/api" => "menu_items#api"
   post "/api/event" => "events#api_new_event"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
