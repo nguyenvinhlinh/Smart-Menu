@@ -60,7 +60,19 @@ class EventsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def api_new_event
+    _host_email = params[:host_email]
+    _name = params[:name]
+    _pending_email = params[:pending_email]
+    _address = params[:address]
+    _occur_date = params[:date]
 
+    
+    
+    
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
