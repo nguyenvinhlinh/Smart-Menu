@@ -7,6 +7,12 @@ class UserMailer < ApplicationMailer
 
   end
 
+  def notify_host(host, customer)
+    @host = host
+    @customer = customer
+    mail(to: @host[:email], subject: "Invitation Accepted")
+  end
+
   def send_invite(invite)
     # assume this is the json object
     #
@@ -19,9 +25,9 @@ class UserMailer < ApplicationMailer
     # }
     #
     @invite = invite
-    @url = 'http://10.0.0.74:3000/customers/new'
-    subject = invite.hostName + " has invited you to join " + invite.eventName
-    mail(to:@invite.receiverEmail, subject: subject)
+    @url = 'http://10.0.0.74:3000/customers/new?hostid=' + @invite[:hostid]
+    subject = @invite[:hostName] + " has invited you to join " + @invite[:eventName]
+    mail(to:@invite[:receiverEmail], subject: subject)
   end
 
 end
