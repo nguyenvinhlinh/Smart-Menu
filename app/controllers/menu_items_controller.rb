@@ -185,6 +185,7 @@ class MenuItemsController < ApplicationController
           image "http://www.tastesecrets.com/category/images/appetizer.jpg"
           items menu_appetizer do |app_item|
             item_name app_item.name
+            image app_item.image
             item_description app_item.description
             item_category app_item.category
             hating_ingredient_number = 0
@@ -216,6 +217,7 @@ class MenuItemsController < ApplicationController
           image "http://kristenwinston.com/wp/wp-content/uploads/2013/02/entree-104.jpg"
           items menu_main do |main_item|
             item_name main_item.name
+            image main_item.image
             item_description main_item.description
             item_category main_item.category
             hating_ingredient_number = 0
@@ -246,6 +248,7 @@ class MenuItemsController < ApplicationController
           image "https://www.applebees.com/~/media/2012_menu_images/Menu%20C/579x441/Desserts/Desserts_Brownie_Bite.jpg"
           items menu_desert do |desert_item|
             item_name desert_item.name
+            image desert_item.image
             item_description desert_item.description
             item_category desert_item.category
             hating_ingredient_number = 0
